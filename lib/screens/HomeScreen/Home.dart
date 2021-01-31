@@ -11,15 +11,31 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        appBar: null,
         body: Column(
               children: [
                 SafeArea(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-                    child: Text("Home",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(fontSize: 45, fontWeight: FontWeight.w100,),
+                  child: FractionallySizedBox(
+                    child: Padding(
+                      padding: EdgeInsets.only(top: 10, left: 16, right: 16),
+                      child: Text("Home",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(fontSize: 45, fontWeight: FontWeight.w100,),
+                      ),
                     ),
+                    widthFactor: 1,
+                  ),
+                ),
+                SafeArea(
+                  child: FractionallySizedBox(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Text("Home",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(fontSize: 30, fontWeight: FontWeight.w100,),
+                      ),
+                    ),
+                    widthFactor: 1,
                   ),
                 ),
               ],
