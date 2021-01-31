@@ -1,5 +1,6 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 enum Themes {
   hackUCI,
@@ -16,18 +17,21 @@ extension ThemesExt on Themes {
           brightness: Brightness.dark,
           primarySwatch: Colors.indigo,
           backgroundColor: Colors.indigo,
+          textTheme: GoogleFonts.montserratTextTheme(),
         );
       case Themes.dark:
         return ThemeData(
           brightness: Brightness.dark,
           primaryColor: Colors.black,
           backgroundColor: Colors.black,
+          textTheme: GoogleFonts.montserratTextTheme(),
         );
       case Themes.light:
         return ThemeData(
           brightness: Brightness.light,
           primaryColor: Colors.white,
           backgroundColor: Color(0xffF1F5FB),
+          textTheme: GoogleFonts.montserratTextTheme(),
         );
       default:
         return null;
