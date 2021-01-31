@@ -3,16 +3,38 @@ import 'package:provider/provider.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smallbusinessflutter/provider/SmallBusinessProvider.dart';
+import 'package:smallbusinessflutter/screens/HomeScreen/Home.dart';
+import 'package:smallbusinessflutter/screens/MapScreen/Map.dart';
+import 'package:smallbusinessflutter/screens/InfoScreen/Information.dart';
+import 'package:smallbusinessflutter/models/Themes.dart';
 
 void main() {
   runApp(App());
 }
 
-class App extends StatelessWidget {
+class App extends StatefulWidget {
+  @override
+  _AppState createState() => _AppState();
+}
+
+class _AppState extends State<App> {
+  SmallBusinessProvider provider = new SmallBusinessProvider();
+
+  @override
+  void initState() {
+    super.initState();
+    getPrefs();
+  }
+
+  void getPrefs() async {
+    provider.theme = await provider.prefs.getTheme();
+  }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    /*return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -27,6 +49,26 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
+    );*/
+    return ChangeNotifierProvider(
+        create: (context) {
+          return provider;
+        },
+      child: Consumer<SmallBusinessProvider>(
+          builder: (context, value, child) {
+            return MaterialApp(
+              title: 'Small Business Finder',
+              routes : {
+                Map.routeName: (context) => Map(),
+                Home.routeName: (context) => Home(),
+                Preferences.routeName: (context) => Preferences(),
+              },
+              initialRoute: Map.routeName,
+              theme: provider.theme == Themes.system ? Themes.light.theme : provider.theme.theme,
+              darkTheme: Themes.dark.theme,
+              );
+          },
+      ),
     );
   }
 }
